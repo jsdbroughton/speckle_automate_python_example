@@ -44,6 +44,9 @@ def main(speckle_project_data: str, function_inputs: str, speckle_token: str):
 
     memory_transport = MemoryTransport()
     server_transport = ServerTransport(project_data.project_id, client)
+
+    print(commit.referencedObject, server_transport, memory_transport)
+
     base = receive(commit.referencedObject, server_transport, memory_transport)
 
     random_space = random.choice(
