@@ -33,6 +33,10 @@ class FunctionInputs(BaseModel):
         alias_generator = camelcase
 
 
+def raise_exception(var1, var2, var3):
+    raise ValueError(f"{var1} {var2} {var3}")
+
+
 def main(speckle_project_data: str, function_inputs: str, speckle_token: str):
     project_data = SpeckleProjectData.model_validate_json(speckle_project_data)
     inputs = FunctionInputs.model_validate_json(function_inputs)
@@ -45,7 +49,10 @@ def main(speckle_project_data: str, function_inputs: str, speckle_token: str):
     memory_transport = MemoryTransport()
     server_transport = ServerTransport(project_data.project_id, client)
 
-    print(commit.referencedObject, server_transport, memory_transport)
+    try:
+        raise_exception("commit.referencedObject", "server_transport", "memory_transport!")
+    except ValueError as e:
+        error_message = str(e)
 
     base = receive(commit.referencedObject, server_transport, memory_transport)
 
