@@ -46,8 +46,8 @@ def main(speckle_project_data: str, function_inputs: str, speckle_token: str):
     server_transport = ServerTransport(project_data.project_id, client)
     base = receive(commit.referencedObject, server_transport, memory_transport)
 
-    random_beam = random.choice(
-        [b for b in flatten_base(base) if b.speckle_type == "IFCBEAM"]
+    random_space = random.choice(
+        [b for b in flatten_base(base) if b.speckle_type == "Objects.BuiltElements.Space"]
     )
 
     make_comment(
@@ -56,7 +56,7 @@ def main(speckle_project_data: str, function_inputs: str, speckle_token: str):
         branch.id,
         project_data.version_id,
         inputs.comment_text,
-        random_beam.id,
+        random_space.id,
     )
 
     print(
