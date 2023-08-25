@@ -45,10 +45,31 @@ def main(speckle_project_data: str, function_inputs: str, speckle_token: str):
     memory_transport = MemoryTransport()
     server_transport = ServerTransport(project_data.project_id, client)
 
-    print(
-        "Ran function with",
-        f"{speckle_project_data} {function_inputs}",
-    )
+
+
+    try:
+        base = receive(commit.referencedObject, server_transport, memory_transport)
+
+        random_space = random.choice(
+            [b for b in flatten_base(base) if b.speckle_type == "Objects.BuiltElements.Space"]
+        )
+
+        make_comment(
+            client,
+            project_data.project_id,
+            branch.id,
+            project_data.version_id,
+            inputs.comment_text,
+            random_space.id,
+        )
+
+        print(
+            "Ran function with",
+            f"{speckle_project_data} {function_inputs}",
+        )
+    except ValueError as e:
+        error_message = str(e)
+        print(error_message)    
 
 
 if __name__ == "__main__":

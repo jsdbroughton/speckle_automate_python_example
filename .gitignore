@@ -311,3 +311,5 @@ pyrightconfig.json
 .ionide
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,python,pycharm
+
+.idea/.idea.speckle_automate_python_example.dir/
